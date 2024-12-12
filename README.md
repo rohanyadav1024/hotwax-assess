@@ -22,6 +22,8 @@ EXPIRY_TIME_TAKEN=90
 
 step5: running command -> uvicorn app.main:app
 
+Note: For calling apis use Bearer Token Authentication in postman. This token can be generated using GET generate token API ("/authentication/token")
+
 link to check swagger documentation HTTP://localhost:8000/docs
 
 Token API
