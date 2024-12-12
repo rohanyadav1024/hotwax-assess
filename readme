@@ -1,2 +1,13 @@
 How to run project>>
 
+install python and pip
+
+install the require files in venv(recommended) or main environment
+
+install all dependencies pip install -r requirements.txt
+
+set values of all variables of .env file
+
+running command uvicorn app.main:app
+
+link to check swagger documentation HTTP://localhost:8000/docs
