@@ -1,3 +1,17 @@
+How to run project>>
+
+install python and pip
+
+install the require files in venv(recommended) or main environment
+
+install all dependencies pip install -r requirements.txt
+
+set values of all variables of .env file
+
+running command uvicorn app.main:app
+
+link to check swagger documentation HTTP://localhost:8000/docs
+
 Token API
 <img width="959" alt="Screenshot 2024-12-12 at 17 36 23" src="https://github.com/user-attachments/assets/333260ed-c68d-4bed-bd47-4e7c440811b0" />
 
