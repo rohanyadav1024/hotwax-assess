@@ -1,14 +1,26 @@
-How to run project>>
+**How to run project**
 
-install python and pip
+step1: install python and pip
 
-install the require files in venv(recommended) or main environment
+step2: install the require files in venv(recommended) or main environment
+#For macOS -> python -m venv venv
 
-install all dependencies pip install -r requirements.txt
+step3: install all dependencies -> pip install -r requirements.txt
 
-set values of all variables of .env file
+step4: set values of all variables in .env file and it will load them in OS env variables
 
-running command uvicorn app.main:app
+#first create a database in localhost server having seperate passwords and database name and keep other variables same. In my case these are the variables
+
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=password
+DATABASE_NAME=hotwaxassessment
+DATABASE_PORT=5432
+DATABASE_HOST=localhost
+ALGORITHM=HS256
+SECRET_KEY=09d2b8y3r03o4yih2a4nfaarw6ca2t3h4isuo4t3e5th0i0s2a53p2pacf63b88e8d3e7
+EXPIRY_TIME_TAKEN=90
+
+step5: running command -> uvicorn app.main:app
 
 link to check swagger documentation HTTP://localhost:8000/docs
 
