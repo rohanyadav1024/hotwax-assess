@@ -8,7 +8,7 @@ from ..oauth import get_current_user
 router = APIRouter(prefix='/orders', tags=["Orders"])
 
 @router.post('', status_code=status.HTTP_201_CREATED)
-def create_order(request: schemas.Order, db: Session = Depends(get_db)):
+def create_order(request: schemas.Order, db: Session = Depends(get_db), user = Depends(get_current_user)):
     new_order = models.Order_Header(
         order_date=request.order_date,
         customer_id=request.customer_id,
@@ -43,7 +43,7 @@ def create_order(request: schemas.Order, db: Session = Depends(get_db)):
     }
 
 @router.get('/{order_id}', status_code=status.HTTP_201_CREATED)
-def get_order(order_id: int, db: Session = Depends(get_db)):
+def get_order(order_id: int, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     order = db.query(models.Order_Header).filter(models.Order_Header.order_id == order_id).first()
     if not order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Order with id {order_id} not found")
@@ -82,7 +82,7 @@ def get_order(order_id: int, db: Session = Depends(get_db)):
 
 
 @router.put('/{order_id}', status_code=status.HTTP_201_CREATED)
-def update_order(order_id: int, request: schemas.UpdateOrder, db: Session = Depends(get_db)):
+def update_order(order_id: int, request: schemas.UpdateOrder, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     existing_order = db.query(models.Order_Header).filter(models.Order_Header.order_id == order_id).first()
     if not existing_order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Order with id {order_id} not found")
@@ -141,7 +141,7 @@ def update_order(order_id: int, request: schemas.UpdateOrder, db: Session = Depe
     }
 
 @router.delete('/{order_id}', status_code=status.HTTP_201_CREATED)
-def delete_order(order_id: int, db: Session = Depends(get_db)):
+def delete_order(order_id: int, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     order = db.query(models.Order_Header).filter(models.Order_Header.order_id == order_id).first()
     if not order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Order with id {order_id} not found")
@@ -157,7 +157,7 @@ def delete_order(order_id: int, db: Session = Depends(get_db)):
 # For Order Items
 
 @router.post('/{order_id}/items', status_code=status.HTTP_201_CREATED)
-def create_order_item(order_id: int, request: schemas.OrderItem, db: Session = Depends(get_db)):
+def create_order_item(order_id: int, request: schemas.OrderItem, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     order = db.query(models.Order_Header).filter(models.Order_Header.order_id == order_id).first()
     if not order:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Order with id {order_id} not found")
@@ -183,7 +183,7 @@ def create_order_item(order_id: int, request: schemas.OrderItem, db: Session = D
     }
 
 @router.put('/{order_id}/items/{order_item_seq_id}', status_code=status.HTTP_201_CREATED)
-def update_order_item(order_id: int, order_item_seq_id: int, request : schemas.UpdateOrderItem, db: Session = Depends(get_db)):
+def update_order_item(order_id: int, order_item_seq_id: int, request : schemas.UpdateOrderItem, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     order_item = db.query(models.Order_Items).filter(models.Order_Items.order_id == order_id, models.Order_Items.order_item_seq_id == order_item_seq_id).first()
 
     if not order_item:
@@ -208,7 +208,7 @@ def update_order_item(order_id: int, order_item_seq_id: int, request : schemas.U
 
 
 @router.delete('/{order_id}/items/{order_item_seq_id}', status_code=status.HTTP_201_CREATED)
-def delete_order_item(order_id: int, order_item_seq_id: int, db: Session = Depends(get_db)):
+def delete_order_item(order_id: int, order_item_seq_id: int, db: Session = Depends(get_db),  user = Depends(get_current_user)):
     order_item = db.query(models.Order_Items).filter(models.Order_Items.order_id == order_id, models.Order_Items.order_item_seq_id == order_item_seq_id).first()
     if not order_item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Order item with id {order_item_seq_id} not found")
